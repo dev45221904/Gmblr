@@ -4,7 +4,7 @@ Gmblr is a full-stack Web3 lottery dApp on Ethereum Sepolia. The React frontend 
 
 ## Preview
 
-![Gmblr lottery dApp interface](./img/neo_bru.png)
+![Gmblr lottery dApp interface](./img/gmblr.vercel.app.png)
 
 
 
