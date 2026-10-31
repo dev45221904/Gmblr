@@ -30,8 +30,8 @@ export function friendlyError(error: Error | null | undefined) {
 
 export function useLuckyDraw(address?: Address) {
   const tickets = useReadContracts({ contracts: Array.from({ length: TICKET_COUNT }, (_, index) => ({ ...contract, functionName: 'tickets', args: [BigInt(index)] })) as any, query: { enabled: isContractConfigured } })
-  const ticketNumbers = (tickets.data ?? []).map((result) => result.status === 'success' ? result.result as bigint : 0n)
-  const ticketOwners = useReadContracts({ contracts: ticketNumbers.map((ticket) => ({ ...contract, functionName: 'TickOwner', args: [ticket] })) as any, query: { enabled: isContractConfigured && ticketNumbers.length === TICKET_COUNT } })
+  const ticketNumbers = (tickets.data ?? []).map((result: any) => result.status === 'success' ? result.result as bigint : 0n)
+  const ticketOwners = useReadContracts({ contracts: ticketNumbers.map((ticket: bigint) => ({ ...contract, functionName: 'TickOwner', args: [ticket] })) as any, query: { enabled: isContractConfigured && ticketNumbers.length === TICKET_COUNT } })
   const price = useReadContract({ ...contract, functionName: 'price', query: { enabled: isContractConfigured } })
   const owner = useReadContract({ ...contract, functionName: 'owner', query: { enabled: isContractConfigured } })
   const ticketsSold = useReadContract({ ...contract, functionName: 'ticketsSold', query: { enabled: isContractConfigured } })

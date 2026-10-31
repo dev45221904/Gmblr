@@ -15,7 +15,7 @@ export default function GmblrApp() {
   const { address, isConnected } = useAccount(); const chainId = useChainId(); const { switchChain } = useSwitchChain(); const [selected, setSelected] = useState<number>()
   const lottery = useLuckyDraw(address); const refresh = useCallback(() => { lottery.refetchAll(); setSelected(undefined) }, [lottery]); const writes = useLuckyDrawWrite(refresh)
   const wrongNetwork = isConnected && chainId !== sepolia.id
-  const owners = useMemo(() => (lottery.ticketOwners.data ?? []).map((item) => item.status === 'success' ? item.result as Address : undefined), [lottery.ticketOwners.data])
+  const owners = useMemo(() => (lottery.ticketOwners.data ?? []).map((item: any) => item.status === 'success' ? item.result as Address : undefined), [lottery.ticketOwners.data])
   const soldOut = lottery.ticketsSold.data === BigInt(TICKET_COUNT); const drawing = Boolean(lottery.draw.data) && lottery.winnerTicket.data === 0n; const winnerPicked = lottery.winnerTicket.data !== undefined && lottery.winnerTicket.data !== 0n; const finished = Boolean(lottery.claimed.data)
   const isOwner = Boolean(address && lottery.owner.data && address.toLowerCase() === lottery.owner.data.toLowerCase())
   const receiptPending = writes.purchaseReceipt.isLoading || writes.drawReceipt.isLoading || writes.claimReceipt.isLoading
